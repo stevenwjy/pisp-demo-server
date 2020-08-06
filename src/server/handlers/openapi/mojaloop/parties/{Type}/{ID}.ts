@@ -30,6 +30,7 @@ import { PartiesTypeIDPutRequest } from '~/shared/ml-thirdparty-client/models/op
 
 import { Status } from '~/models/transaction'
 import { transactionRepository } from '~/repositories/transaction'
+import { logger } from '~/shared/logger'
 
 /**
  * Handles callback from Mojaloop that specifies detailed info about a requested party.
@@ -39,6 +40,8 @@ import { transactionRepository } from '~/repositories/transaction'
  * @param h         original request toolkit as defined by the hapi libary.
  */
 export const put: Handler = async (context: Context, _: Request, h: ResponseToolkit): Promise<ResponseObject> => {
+  logger.logRequest(context, _, h)
+
   // Retrieve the data that have been validated by the openapi-backend library.
   let body = context.request.body as PartiesTypeIDPutRequest
   let partyIdType = context.request.params.Type

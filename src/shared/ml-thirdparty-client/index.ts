@@ -26,6 +26,7 @@
 import { Simulator } from '~/shared/ml-thirdparty-simulator'
 import { PartyIdType } from './models/core'
 import { ThirdPartyTransactionRequest, AuthorizationsPutIdRequest } from './models/openapi'
+import { logger } from '../logger'
 
 namespace Client {
   /**
@@ -74,6 +75,10 @@ export class Client {
    * @param id    the party identifier
    */
   public async getParties(type: PartyIdType, id: string): Promise<void> {
+    console.log('')
+    logger.info('Request to Mojaloop: GET /parties/' + type + '/' + id)
+    console.log('')
+
     if (this.simulator) {
       // If the client is configured with a simulator, then it will not
       // communicate with Mojaloop directly. Instead, it will only generate
@@ -91,6 +96,11 @@ export class Client {
    * @param requestBody a transaction request object as defined by the Mojaloop API.
    */
   public async postTransactions(requestBody: ThirdPartyTransactionRequest) {
+    console.log('')
+    logger.info('Request to Mojaloop: POST /thidpartyRequests/transactions')
+    console.log(requestBody)
+    console.log('')
+
     if (this.simulator) {
       // If the client is configured with a simulator, then it will not
       // communicate with Mojaloop directly. Instead, it will only generate
@@ -117,6 +127,12 @@ export class Client {
     requestBody: AuthorizationsPutIdRequest,
     transactionId?: string,
   ) {
+
+    console.log('')
+    logger.info('Request to Mojaloop: PUT /authorizations/' + id + ' ')
+    console.log(requestBody)
+    console.log('')
+
     if (transactionId && this.simulator) {
       // If a transaction id is provided and the client is configured with a 
       // simulator, then it will not communicate with Mojaloop directly. Instead, 

@@ -55,7 +55,9 @@ export class Logger {
     const headersStr = util.inspect(context.request.headers, { showHidden: true, depth: null })
     const paramstStr = util.inspect(context.request.params, { showHidden: true, depth: null })
     const payloadStr = util.inspect(context.request.body, { showHidden: true, depth: null })
+    console.log('')
     this._logger.info(`New request - headers: ${headersStr}, params: ${paramstStr}, payload: ${payloadStr}`)
+    console.log('')
   }
 
   logResponse(request: RequestLogged) {

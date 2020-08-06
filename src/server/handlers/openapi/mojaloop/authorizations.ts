@@ -30,8 +30,11 @@ import { AuthorizationsPostRequest } from '~/shared/ml-thirdparty-client/models/
 
 import { transactionRepository } from '~/repositories/transaction'
 import { Status } from '~/models/transaction'
+import { logger } from '~/shared/logger'
 
 export const post: Handler = async (context: Context, _: Request, h: ResponseToolkit) => {
+  logger.logRequest(context, _, h)
+
   let body = context.request.body as AuthorizationsPostRequest
 
   transactionRepository.update(

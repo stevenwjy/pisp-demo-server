@@ -30,8 +30,11 @@ import { TransferIDPutRequest } from '~/shared/ml-thirdparty-client/models/opena
 
 import { Status } from '~/models/transaction'
 import { transactionRepository } from '~/repositories/transaction'
+import { logger } from '~/shared/logger'
 
 export const put: Handler = async (context: Context, _: Request, h: ResponseToolkit) => {
+  logger.logRequest(context, _, h)
+
   let body = context.request.body as TransferIDPutRequest
 
   transactionRepository.update(

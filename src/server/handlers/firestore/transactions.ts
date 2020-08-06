@@ -148,6 +148,10 @@ async function handleAuthorization(server: Server, transaction: Transaction) {
   }
 }
 
+async function delay(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
+
 export const onCreate: TransactionHandler = async (
   server: Server,
   transaction: Transaction
@@ -159,6 +163,8 @@ export const onCreate: TransactionHandler = async (
     // document.
     return
   }
+
+  await delay(5000)
 
   await handleNewTransaction(server, transaction)
 }

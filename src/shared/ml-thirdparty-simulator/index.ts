@@ -146,6 +146,12 @@ export class Simulator {
     const targetUrl = '/transfers/' + faker.random.uuid()
     const payload = TransferFactory.createTransferIdPutRequest(id, request, transactionId)
 
+    if (this.opts.delay) {
+      // Delay operations to simulate network latency in real communication
+      // with Mojaloop.
+      await this.delay(this.opts.delay)
+    }
+
     this.server.inject({
       method: 'PUT',
       url: targetUrl,
